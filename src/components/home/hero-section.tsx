@@ -102,7 +102,7 @@ export default function HeroSection() {
           <div className="mt-9 flex flex-col gap-4 sm:flex-row">
             <Link
               href="/rooms"
-              className="inline-flex min-h-12 items-center justify-center border border-white px-7 text-sm font-semibold tracking-wide text-white transition hover:bg-white hover:text-[#14213D]"
+              className="inline-flex min-h-12 items-center justify-center border border-white px-7 text-sm font-semibold tracking-wide !text-white transition hover:bg-white hover:!text-black"
             >
               EXPLORE ROOMS
             </Link>
