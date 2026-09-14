@@ -1,4 +1,5 @@
 import BookingSearch from "@/components/booking/booking-search";
+import AboutSection from "@/components/home/about-section";
 import HeroSection from "@/components/home/hero-section";
 import Navbar from "@/components/layout/navbar";
 import TopBar from "@/components/layout/top-bar";
@@ -10,6 +11,7 @@ export default function Home() {
       <Navbar />
       <HeroSection />
       <BookingSearch />
+      <AboutSection />
     </main>
   );
 }
