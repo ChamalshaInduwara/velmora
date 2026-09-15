@@ -1,5 +1,6 @@
 import BookingSearch from "@/components/booking/booking-search";
 import AboutSection from "@/components/home/about-section";
+import DiningSection from "@/components/home/dining-section";
 import FacilitiesSection from "@/components/home/facilities-section";
 import HeroSection from "@/components/home/hero-section";
 import RoomsSection from "@/components/home/rooms-section";
@@ -16,6 +17,7 @@ export default function Home() {
       <AboutSection />
       <RoomsSection />
       <FacilitiesSection />
+      <DiningSection />
     </main>
   );
 }
