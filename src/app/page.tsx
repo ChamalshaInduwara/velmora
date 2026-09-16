@@ -4,6 +4,7 @@ import DiningSection from "@/components/home/dining-section";
 import ExperiencesSection from "@/components/home/experiences-section";
 import FacilitiesSection from "@/components/home/facilities-section";
 import HeroSection from "@/components/home/hero-section";
+import OffersSection from "@/components/home/offers-section";
 import RoomsSection from "@/components/home/rooms-section";
 import Navbar from "@/components/layout/navbar";
 import TopBar from "@/components/layout/top-bar";
@@ -20,6 +21,7 @@ export default function Home() {
       <FacilitiesSection />
       <DiningSection />
       <ExperiencesSection />
+      <OffersSection />
     </main>
   );
 }
