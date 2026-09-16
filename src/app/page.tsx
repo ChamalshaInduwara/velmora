@@ -3,6 +3,7 @@ import AboutSection from "@/components/home/about-section";
 import DiningSection from "@/components/home/dining-section";
 import ExperiencesSection from "@/components/home/experiences-section";
 import FacilitiesSection from "@/components/home/facilities-section";
+import GallerySection from "@/components/home/gallery-section";
 import HeroSection from "@/components/home/hero-section";
 import OffersSection from "@/components/home/offers-section";
 import RoomsSection from "@/components/home/rooms-section";
@@ -22,6 +23,7 @@ export default function Home() {
       <DiningSection />
       <ExperiencesSection />
       <OffersSection />
+      <GallerySection />
     </main>
   );
 }
