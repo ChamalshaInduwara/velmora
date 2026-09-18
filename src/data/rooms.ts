@@ -6,10 +6,22 @@ export const rooms = [
     image: "/images/rooms/deluxe-king.png",
     description:
       "A refined room designed for comfort, relaxation and elegant stays.",
+    longDescription:
+      "The Deluxe King Room combines timeless elegance with modern comfort. Designed for couples and solo travellers, the room provides a peaceful space to relax after exploring the hotel and surrounding city.",
     guests: 2,
     bed: "King Bed",
     size: "42 m²",
     price: 28000,
+    amenities: [
+      "King-size bed",
+      "Free high-speed Wi-Fi",
+      "Air conditioning",
+      "Smart TV",
+      "Tea and coffee facilities",
+      "Private bathroom",
+      "In-room safe",
+      "24-hour room service",
+    ],
   },
   {
     id: 2,
@@ -18,10 +30,24 @@ export const rooms = [
     image: "/images/rooms/ocean-view-suite.png",
     description:
       "A spacious suite with relaxing interiors and beautiful ocean views.",
+    longDescription:
+      "The Ocean View Suite offers generous space, elegant interiors and beautiful views. It is designed for guests looking for a more luxurious and peaceful stay with additional comfort and privacy.",
     guests: 2,
     bed: "King Bed",
     size: "58 m²",
     price: 45000,
+    amenities: [
+      "King-size bed",
+      "Ocean view",
+      "Private sitting area",
+      "Free high-speed Wi-Fi",
+      "Air conditioning",
+      "Smart TV",
+      "Luxury bathroom",
+      "Mini refrigerator",
+      "Tea and coffee facilities",
+      "24-hour room service",
+    ],
   },
   {
     id: 3,
@@ -30,9 +56,23 @@ export const rooms = [
     image: "/images/rooms/family-suite.png",
     description:
       "A comfortable and spacious suite designed for memorable family stays.",
+    longDescription:
+      "The Family Suite provides additional space and practical comfort for families travelling together. Separate sleeping arrangements and generous living space make it ideal for relaxing family holidays.",
     guests: 4,
     bed: "1 King + 2 Single Beds",
     size: "68 m²",
     price: 52000,
+    amenities: [
+      "King bed and two single beds",
+      "Family seating area",
+      "Free high-speed Wi-Fi",
+      "Air conditioning",
+      "Smart TV",
+      "Private bathroom",
+      "Mini refrigerator",
+      "Tea and coffee facilities",
+      "In-room safe",
+      "24-hour room service",
+    ],
   },
 ];
