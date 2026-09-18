@@ -10,6 +10,7 @@ import LocationSection from "@/components/home/location-section";
 import OffersSection from "@/components/home/offers-section";
 import ReviewsSection from "@/components/home/reviews-section";
 import RoomsSection from "@/components/home/rooms-section";
+import Footer from "@/components/layout/footer";
 import Navbar from "@/components/layout/navbar";
 import TopBar from "@/components/layout/top-bar";
 
@@ -18,6 +19,7 @@ export default function Home() {
     <main>
       <TopBar />
       <Navbar />
+
       <HeroSection />
       <BookingSearch />
       <AboutSection />
@@ -30,6 +32,8 @@ export default function Home() {
       <ReviewsSection />
       <LocationSection />
       <FinalBookingSection />
+
+      <Footer />
     </main>
   );
 }
