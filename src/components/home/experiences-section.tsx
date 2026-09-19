@@ -54,7 +54,7 @@ export default function ExperiencesSection() {
                 </p>
 
                 <Link
-                  href="/experiences"
+                  href={`/experiences#${experience.slug}`}
                   className="mt-5 inline-flex items-center gap-2 text-xs font-semibold tracking-[0.14em] text-[#C9A227] transition hover:text-white"
                 >
                   DISCOVER MORE
