@@ -19,7 +19,10 @@ export default function GalleryPage() {
       <Navbar />
 
       {/* Hero */}
-      <section className="relative flex min-h-[500px] items-end overflow-hidden">
+      <section
+        className="relative flex min-h-[500px] items-end overflow-hidden"
+        data-navbar-theme="dark"
+      >
         <Image
           src="/images/gallery/gallery-1.png"
           alt="Velmora Hotel and Resort gallery"
@@ -53,7 +56,10 @@ export default function GalleryPage() {
       </section>
 
       {/* Intro */}
-      <section className="px-4 py-20 sm:px-6 md:py-24 lg:px-8">
+      <section
+        className="px-4 py-20 sm:px-6 md:py-24 lg:px-8"
+        data-navbar-theme="light"
+      >
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-xs font-semibold tracking-[0.3em] text-[#C9A227]">
             EXPLORE VELMORA
@@ -73,7 +79,10 @@ export default function GalleryPage() {
       </section>
 
       {/* Full Gallery */}
-      <section className="bg-[#14213D] px-4 py-20 sm:px-6 md:py-24 lg:px-8 lg:py-28">
+      <section
+        className="bg-[#14213D] px-4 py-20 sm:px-6 md:py-24 lg:px-8 lg:py-28"
+        data-navbar-theme="dark"
+      >
         <div className="mx-auto max-w-7xl">
           <div className="grid auto-rows-[240px] gap-4 md:auto-rows-[280px] md:grid-cols-2 lg:auto-rows-[220px] lg:grid-cols-12">
             {galleryImages.map((item, index) => {
