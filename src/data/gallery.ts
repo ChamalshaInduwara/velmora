@@ -35,4 +35,22 @@ export const galleryImages = [
     title: "Memorable Events",
     category: "Events",
   },
+  {
+    id: 7,
+    image: "/images/gallery/gallery-7.png",
+    title: "Elegant Lobby",
+    category: "Hotel",
+  },
+  {
+    id: 8,
+    image: "/images/gallery/gallery-8.png",
+    title: "Culinary Moments",
+    category: "Food",
+  },
+  {
+    id: 9,
+    image: "/images/gallery/gallery-9.png",
+    title: "Velmora Views",
+    category: "Views",
+  },
 ];
