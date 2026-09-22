@@ -19,16 +19,16 @@ const navLinks = [
     href: "/dining",
   },
   {
+    name: "Facilities",
+    href: "/facilities",
+  },
+  {
     name: "Experiences",
     href: "/experiences",
   },
   {
     name: "Offers",
     href: "/offers",
-  },
-  {
-    name: "Gallery",
-    href: "/gallery",
   },
   {
     name: "About Us",
