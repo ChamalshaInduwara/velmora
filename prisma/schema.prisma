@@ -1,8 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client"
   output   = "../src/generated/prisma"
@@ -10,4 +5,174 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+}
+
+enum RoomStatus {
+  AVAILABLE
+  MAINTENANCE
+  INACTIVE
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  CHECKED_IN
+  CHECKED_OUT
+}
+
+enum PaymentStatus {
+  INITIATED
+  PAID
+  FAILED
+  REFUNDED
+}
+
+enum PaymentMethod {
+  PAY_AT_HOTEL
+  CARD
+}
+
+model Hotel {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  description String?
+  address     String?
+  city        String
+  country     String
+  phone       String?
+  email       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  roomTypes RoomType[]
+  rooms     Room[]
+  bookings  Booking[]
+}
+
+model RoomType {
+  id               String   @id @default(cuid())
+  hotelId          String
+  name             String
+  slug             String
+  shortDescription String?
+  description      String?
+  capacity         Int
+  bedType          String
+  sizeSqm          Int?
+  pricePerNight    Int
+  imageUrl         String?
+  isActive         Boolean  @default(true)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  hotel Hotel @relation(fields: [hotelId], references: [id], onDelete: Cascade)
+
+  rooms        Room[]
+  bookingRooms BookingRoom[]
+
+  @@unique([hotelId, slug])
+  @@index([hotelId])
+}
+
+model Room {
+  id         String     @id @default(cuid())
+  hotelId    String
+  roomTypeId String
+  roomNumber String
+  floor      Int?
+  status     RoomStatus @default(AVAILABLE)
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+
+  hotel Hotel @relation(fields: [hotelId], references: [id], onDelete: Cascade)
+
+  roomType RoomType @relation(fields: [roomTypeId], references: [id], onDelete: Restrict)
+
+  bookingRooms BookingRoom[]
+
+  @@unique([hotelId, roomNumber])
+  @@index([hotelId])
+  @@index([roomTypeId])
+}
+
+model Guest {
+  id        String   @id @default(cuid())
+  firstName String
+  lastName  String
+  email     String   @unique
+  phone     String?
+  country   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  bookings Booking[]
+}
+
+model Booking {
+  id               String        @id @default(cuid())
+  bookingReference String        @unique
+  hotelId          String
+  guestId          String
+  checkIn          DateTime
+  checkOut         DateTime
+  adults           Int
+  children         Int           @default(0)
+  numberOfRooms    Int
+  status           BookingStatus @default(PENDING)
+  subtotal         Int
+  totalAmount      Int
+  specialRequests  String?
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  hotel Hotel @relation(fields: [hotelId], references: [id], onDelete: Restrict)
+
+  guest Guest @relation(fields: [guestId], references: [id], onDelete: Restrict)
+
+  bookingRooms BookingRoom[]
+  payments     Payment[]
+
+  @@index([hotelId])
+  @@index([guestId])
+  @@index([checkIn, checkOut])
+  @@index([status])
+}
+
+model BookingRoom {
+  id            String  @id @default(cuid())
+  bookingId     String
+  roomTypeId    String
+  roomId        String?
+  pricePerNight Int
+  nights        Int
+  roomTotal     Int
+
+  booking Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+  roomType RoomType @relation(fields: [roomTypeId], references: [id], onDelete: Restrict)
+
+  room Room? @relation(fields: [roomId], references: [id], onDelete: SetNull)
+
+  @@index([bookingId])
+  @@index([roomTypeId])
+  @@index([roomId])
+}
+
+model Payment {
+  id            String        @id @default(cuid())
+  bookingId     String
+  amount        Int
+  status        PaymentStatus @default(INITIATED)
+  method        PaymentMethod
+  transactionId String?       @unique
+  paidAt        DateTime?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  booking Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+  @@index([bookingId])
+  @@index([status])
 }
