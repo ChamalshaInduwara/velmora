@@ -1,12 +1,14 @@
 import Link from "next/link";
-import RoomCard from "@/components/rooms/room-card";
-import { rooms } from "@/data/rooms";
 
-export default function RoomsSection() {
+import RoomCard from "@/components/rooms/room-card";
+import { getActiveRoomTypes } from "@/lib/rooms";
+
+export default async function RoomsSection() {
+  const rooms = await getActiveRoomTypes();
+
   return (
     <section className="bg-white px-4 py-20 sm:px-6 md:py-24 lg:px-8 lg:py-28">
       <div className="mx-auto max-w-7xl">
-        {/* Heading */}
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-xs font-semibold tracking-[0.3em] text-[#C9A227] sm:text-sm">
             ROOMS & SUITES
@@ -24,24 +26,25 @@ export default function RoomsSection() {
           </p>
         </div>
 
-        {/* Room Cards */}
         <div className="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {rooms.map((room) => (
             <RoomCard
               key={room.id}
               slug={room.slug}
               name={room.name}
-              image={room.image}
-              description={room.description}
-              guests={room.guests}
-              bed={room.bed}
-              size={room.size}
-              price={room.price}
+              image={room.imageUrl ?? "/images/rooms/deluxe-king.png"}
+              description={
+                room.shortDescription ??
+                "Experience comfort and elegance at Velmora Hotel & Resort."
+              }
+              guests={room.capacity}
+              bed={room.bedType}
+              size={room.sizeSqm ? `${room.sizeSqm} m²` : "—"}
+              price={room.pricePerNight}
             />
           ))}
         </div>
 
-        {/* View all rooms */}
         <div className="mt-12 text-center">
           <Link
             href="/rooms"

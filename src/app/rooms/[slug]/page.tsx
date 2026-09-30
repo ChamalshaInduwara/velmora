@@ -14,7 +14,9 @@ import {
 import Footer from "@/components/layout/footer";
 import Navbar from "@/components/layout/navbar";
 import TopBar from "@/components/layout/top-bar";
-import { rooms } from "@/data/rooms";
+import { getRoomTypeBySlug } from "@/lib/rooms";
+
+export const dynamic = "force-dynamic";
 
 type RoomPageProps = {
   params: Promise<{
@@ -22,18 +24,12 @@ type RoomPageProps = {
   }>;
 };
 
-export function generateStaticParams() {
-  return rooms.map((room) => ({
-    slug: room.slug,
-  }));
-}
-
 export async function generateMetadata({
   params,
 }: RoomPageProps): Promise<Metadata> {
   const { slug } = await params;
 
-  const room = rooms.find((item) => item.slug === slug);
+  const room = await getRoomTypeBySlug(slug);
 
   if (!room) {
     return {
@@ -43,16 +39,16 @@ export async function generateMetadata({
 
   return {
     title: `${room.name} | Velmora Hotel & Resort`,
-    description: room.description,
+    description:
+      room.shortDescription ??
+      `Discover ${room.name} at Velmora Hotel & Resort.`,
   };
 }
 
-export default async function RoomDetailsPage({
-  params,
-}: RoomPageProps) {
+export default async function RoomDetailsPage({ params }: RoomPageProps) {
   const { slug } = await params;
 
-  const room = rooms.find((item) => item.slug === slug);
+  const room = await getRoomTypeBySlug(slug);
 
   if (!room) {
     notFound();
@@ -66,7 +62,7 @@ export default async function RoomDetailsPage({
       {/* Room Hero */}
       <section className="relative min-h-[560px] overflow-hidden">
         <Image
-          src={room.image}
+          src={room.imageUrl ?? "/images/rooms/deluxe-king.png"}
           alt={room.name}
           fill
           priority
@@ -113,7 +109,7 @@ export default async function RoomDetailsPage({
             <div className="mt-6 h-px w-16 bg-[#C9A227]" />
 
             <p className="mt-7 max-w-3xl text-base leading-8 text-[#242424]/70">
-              {room.longDescription}
+              {room.description}
             </p>
 
             {/* Quick Information */}
@@ -126,7 +122,7 @@ export default async function RoomDetailsPage({
                 </p>
 
                 <p className="mt-2 text-sm text-[#242424]/70">
-                  Up to {room.guests} Guests
+                  Up to {room.capacity} Guests
                 </p>
               </div>
 
@@ -137,9 +133,7 @@ export default async function RoomDetailsPage({
                   BED TYPE
                 </p>
 
-                <p className="mt-2 text-sm text-[#242424]/70">
-                  {room.bed}
-                </p>
+                <p className="mt-2 text-sm text-[#242424]/70">{room.bedType}</p>
               </div>
 
               <div className="border border-[#D8CBB8] bg-white p-6">
@@ -150,7 +144,7 @@ export default async function RoomDetailsPage({
                 </p>
 
                 <p className="mt-2 text-sm text-[#242424]/70">
-                  {room.size}
+                  {room.sizeSqm ? `${room.sizeSqm} m²` : "Not specified"}
                 </p>
               </div>
             </div>
@@ -171,9 +165,7 @@ export default async function RoomDetailsPage({
                       <Check size={16} />
                     </div>
 
-                    <span className="text-sm text-[#242424]/75">
-                      {amenity}
-                    </span>
+                    <span className="text-sm text-[#242424]/75">{amenity}</span>
                   </div>
                 ))}
               </div>
@@ -188,12 +180,15 @@ export default async function RoomDetailsPage({
 
             <div className="mt-4 flex items-end gap-2">
               <p className="font-[var(--font-playfair)] text-4xl font-semibold text-white">
-                LKR {room.price.toLocaleString()}
+                LKR {room.pricePerNight.toLocaleString()}
               </p>
             </div>
 
-            <p className="mt-1 text-sm text-white/55">
-              per night
+            <p className="mt-1 text-sm text-white/55">per night</p>
+
+            <p className="mt-4 text-sm text-white/70">
+              {room.rooms.length} physical room
+              {room.rooms.length === 1 ? "" : "s"} currently active
             </p>
 
             <div className="my-7 h-px bg-white/15" />
@@ -207,7 +202,6 @@ export default async function RoomDetailsPage({
               className="group mt-7 flex min-h-13 items-center justify-center gap-3 bg-[#C9A227] px-6 text-xs font-bold tracking-[0.14em] text-[#14213D] transition hover:bg-white"
             >
               CHECK AVAILABILITY
-
               <ArrowRight
                 size={17}
                 className="transition-transform group-hover:translate-x-1"

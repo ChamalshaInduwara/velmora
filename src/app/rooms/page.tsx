@@ -5,7 +5,9 @@ import Footer from "@/components/layout/footer";
 import Navbar from "@/components/layout/navbar";
 import TopBar from "@/components/layout/top-bar";
 import RoomCard from "@/components/rooms/room-card";
-import { rooms } from "@/data/rooms";
+import { getActiveRoomTypes } from "@/lib/rooms";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Rooms & Suites | Velmora Hotel & Resort",
@@ -13,7 +15,8 @@ export const metadata: Metadata = {
     "Explore elegant rooms and suites at Velmora Hotel & Resort.",
 };
 
-export default function RoomsPage() {
+export default async function RoomsPage() {
+  const rooms = await getActiveRoomTypes();
   return (
     <main className="bg-[#F6F1E8]">
       <TopBar />
@@ -73,19 +76,22 @@ export default function RoomsPage() {
           </div>
 
           <div className="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {rooms.map((room) => (
-              <RoomCard
-                key={room.id}
-                slug={room.slug}
-                name={room.name}
-                image={room.image}
-                description={room.description}
-                guests={room.guests}
-                bed={room.bed}
-                size={room.size}
-                price={room.price}
-              />
-            ))}
+           {rooms.map((room) => (
+  <RoomCard
+    key={room.id}
+    slug={room.slug}
+    name={room.name}
+    image={room.imageUrl ?? "/images/rooms/deluxe-king.png"}
+    description={
+      room.shortDescription ??
+      "Experience comfort and elegance at Velmora Hotel & Resort."
+    }
+    guests={room.capacity}
+    bed={room.bedType}
+    size={room.sizeSqm ? `${room.sizeSqm} m²` : "—"}
+    price={room.pricePerNight}
+  />
+))}
           </div>
         </div>
       </section>

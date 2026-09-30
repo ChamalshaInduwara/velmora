@@ -63,6 +63,7 @@ model RoomType {
   sizeSqm          Int?
   pricePerNight    Int
   imageUrl         String?
+  amenities        String[] @default([])
   isActive         Boolean  @default(true)
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt

@@ -1,18 +1,12 @@
 import "dotenv/config";
 
 import { PrismaPg } from "@prisma/adapter-pg";
-import {
-  PrismaClient,
-  RoomStatus,
-} from "../src/generated/prisma/client";
+import { PrismaClient, RoomStatus } from "../src/generated/prisma/client";
 
-const connectionString =
-  process.env.DIRECT_URL ?? process.env.DATABASE_URL;
+const connectionString = process.env.DIRECT_URL ?? process.env.DATABASE_URL;
 
 if (!connectionString) {
-  throw new Error(
-    "Neither DIRECT_URL nor DATABASE_URL is configured."
-  );
+  throw new Error("Neither DIRECT_URL nor DATABASE_URL is configured.");
 }
 
 const adapter = new PrismaPg({
@@ -75,7 +69,17 @@ async function main() {
       bedType: "King Bed",
       sizeSqm: 42,
       pricePerNight: 28000,
-      imageUrl: "/images/rooms/deluxe-king.jpg",
+      imageUrl: "/images/rooms/deluxe-king.png",
+      amenities: [
+        "King-size bed",
+        "Free high-speed Wi-Fi",
+        "Air conditioning",
+        "Smart TV",
+        "Tea and coffee facilities",
+        "Private bathroom",
+        "In-room safe",
+        "24-hour room service",
+      ],
       isActive: true,
     },
 
@@ -91,7 +95,17 @@ async function main() {
       bedType: "King Bed",
       sizeSqm: 42,
       pricePerNight: 28000,
-      imageUrl: "/images/rooms/deluxe-king.jpg",
+      imageUrl: "/images/rooms/deluxe-king.png",
+      amenities: [
+        "King-size bed",
+        "Free high-speed Wi-Fi",
+        "Air conditioning",
+        "Smart TV",
+        "Tea and coffee facilities",
+        "Private bathroom",
+        "In-room safe",
+        "24-hour room service",
+      ],
       isActive: true,
     },
   });
@@ -115,7 +129,19 @@ async function main() {
       bedType: "King Bed",
       sizeSqm: 58,
       pricePerNight: 45000,
-      imageUrl: "/images/rooms/ocean-view-suite.jpg",
+      imageUrl: "/images/rooms/ocean-view-suite.png",
+      amenities: [
+        "King-size bed",
+        "Ocean view",
+        "Private sitting area",
+        "Free high-speed Wi-Fi",
+        "Air conditioning",
+        "Smart TV",
+        "Luxury bathroom",
+        "Mini refrigerator",
+        "Tea and coffee facilities",
+        "24-hour room service",
+      ],
       isActive: true,
     },
 
@@ -131,7 +157,19 @@ async function main() {
       bedType: "King Bed",
       sizeSqm: 58,
       pricePerNight: 45000,
-      imageUrl: "/images/rooms/ocean-view-suite.jpg",
+      imageUrl: "/images/rooms/ocean-view-suite.png",
+      amenities: [
+        "King-size bed",
+        "Ocean view",
+        "Private sitting area",
+        "Free high-speed Wi-Fi",
+        "Air conditioning",
+        "Smart TV",
+        "Luxury bathroom",
+        "Mini refrigerator",
+        "Tea and coffee facilities",
+        "24-hour room service",
+      ],
       isActive: true,
     },
   });
@@ -155,7 +193,19 @@ async function main() {
       bedType: "1 King + 2 Single Beds",
       sizeSqm: 68,
       pricePerNight: 52000,
-      imageUrl: "/images/rooms/family-suite.jpg",
+      imageUrl: "/images/rooms/family-suite.png",
+      amenities: [
+        "King bed and two single beds",
+        "Family seating area",
+        "Free high-speed Wi-Fi",
+        "Air conditioning",
+        "Smart TV",
+        "Private bathroom",
+        "Mini refrigerator",
+        "Tea and coffee facilities",
+        "In-room safe",
+        "24-hour room service",
+      ],
       isActive: true,
     },
 
@@ -171,7 +221,19 @@ async function main() {
       bedType: "1 King + 2 Single Beds",
       sizeSqm: 68,
       pricePerNight: 52000,
-      imageUrl: "/images/rooms/family-suite.jpg",
+      imageUrl: "/images/rooms/family-suite.png",
+      amenities: [
+        "King bed and two single beds",
+        "Family seating area",
+        "Free high-speed Wi-Fi",
+        "Air conditioning",
+        "Smart TV",
+        "Private bathroom",
+        "Mini refrigerator",
+        "Tea and coffee facilities",
+        "In-room safe",
+        "24-hour room service",
+      ],
       isActive: true,
     },
   });
