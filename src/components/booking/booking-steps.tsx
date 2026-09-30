@@ -1,5 +1,5 @@
 type BookingStepsProps = {
-  currentStep: 1 | 2 | 3 | 4;
+  currentStep: 1 | 2 | 3 | 4 | 5;
 };
 
 const steps = [
@@ -17,6 +17,10 @@ const steps = [
   },
   {
     number: 4,
+    name: "Payment",
+  },
+  {
+    number: 5,
     name: "Confirmation",
   },
 ];
@@ -27,9 +31,10 @@ export default function BookingSteps({
   return (
     <div className="border-b border-[#D8CBB8]/70 bg-white">
       <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-4 gap-2">
+        <div className="grid grid-cols-5 gap-2">
           {steps.map((step) => {
-            const active = step.number <= currentStep;
+            const active =
+              step.number <= currentStep;
 
             return (
               <div
@@ -47,7 +52,7 @@ export default function BookingSteps({
                 </div>
 
                 <span
-                  className={`mt-2 text-[10px] font-semibold tracking-wide sm:text-xs ${
+                  className={`mt-2 text-[9px] font-semibold tracking-wide sm:text-xs ${
                     active
                       ? "text-[#14213D]"
                       : "text-[#242424]/40"
