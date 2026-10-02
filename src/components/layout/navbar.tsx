@@ -38,6 +38,10 @@ const navLinks = [
     name: "Contact",
     href: "/contact",
   },
+  {
+    name: "My Booking",
+    href: "/my-booking",
+  },
 ];
 
 export default function Navbar() {

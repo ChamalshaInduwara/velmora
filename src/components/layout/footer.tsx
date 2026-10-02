@@ -1,15 +1,7 @@
 import Link from "next/link";
-import {
-  Mail,
-  MapPin,
-  Phone,
-} from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaYoutube,
-} from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaYoutube } from "react-icons/fa";
 
 const quickLinks = [
   { name: "Home", href: "/" },
@@ -19,6 +11,7 @@ const quickLinks = [
   { name: "Experiences", href: "/experiences" },
   { name: "About Us", href: "/about" },
   { name: "Contact", href: "/contact" },
+  { name: "My Booking", href: "/my-booking" },
 ];
 
 const policyLinks = [
@@ -91,10 +84,7 @@ export default function Footer() {
 
             <div className="mt-6 space-y-5">
               <div className="flex gap-3">
-                <MapPin
-                  size={18}
-                  className="mt-0.5 shrink-0 text-[#C9A227]"
-                />
+                <MapPin size={18} className="mt-0.5 shrink-0 text-[#C9A227]" />
 
                 <p className="text-sm leading-6 text-white/70">
                   Colombo, Sri Lanka
@@ -126,8 +116,7 @@ export default function Footer() {
             </h3>
 
             <p className="mt-6 text-sm leading-7 text-white/65">
-              Follow Velmora for hotel updates, experiences and special
-              offers.
+              Follow Velmora for hotel updates, experiences and special offers.
             </p>
 
             <div className="mt-6 flex gap-3">
@@ -136,7 +125,7 @@ export default function Footer() {
                 aria-label="Velmora Facebook"
                 className="flex h-11 w-11 items-center justify-center border border-white/20 transition hover:border-[#C9A227] hover:bg-[#C9A227] hover:text-[#14213D]"
               >
-               <FaFacebookF size={18} />
+                <FaFacebookF size={18} />
               </a>
 
               <a
