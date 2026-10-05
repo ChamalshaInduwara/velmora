@@ -119,6 +119,7 @@ model Booking {
   bookingReference String        @unique
   hotelId          String
   guestId          String
+  accountUserId    String?
   checkIn          DateTime
   checkOut         DateTime
   adults           Int
@@ -135,11 +136,14 @@ model Booking {
 
   guest Guest @relation(fields: [guestId], references: [id], onDelete: Restrict)
 
+  accountUser User? @relation("AccountBookings", fields: [accountUserId], references: [id], onDelete: SetNull)
+
   bookingRooms BookingRoom[]
   payments     Payment[]
 
   @@index([hotelId])
   @@index([guestId])
+  @@index([accountUserId])
   @@index([checkIn, checkOut])
   @@index([status])
 }
@@ -192,6 +196,7 @@ model User {
   sessions      Session[]
   accounts      Account[]
   guest         Guest?
+  bookings      Booking[] @relation("AccountBookings")
 
   @@unique([email])
   @@map("user")

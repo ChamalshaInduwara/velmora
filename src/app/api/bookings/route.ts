@@ -15,6 +15,7 @@ import {
   parseBookingDate,
 } from "@/lib/booking-utils";
 
+import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
 export const runtime = "nodejs";
@@ -76,6 +77,11 @@ export async function POST(
   request: Request
 ) {
   try {
+    const session =
+      await auth.api.getSession({
+        headers: request.headers,
+      });
+
     const body =
       (await request.json()) as BookingRequestBody;
 
@@ -118,6 +124,13 @@ export async function POST(
       getString(
         guest.email
       ).toLowerCase();
+
+    const authenticatedUserId =
+      session &&
+      session.user.email.toLowerCase() ===
+        email
+        ? session.user.id
+        : null;
 
     const phone =
       getString(guest.phone);
@@ -400,6 +413,9 @@ export async function POST(
 
               guestId:
                 databaseGuest.id,
+
+              accountUserId:
+                authenticatedUserId,
 
               checkIn,
               checkOut,
