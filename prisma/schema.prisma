@@ -25,6 +25,7 @@ enum PaymentStatus {
   INITIATED
   PAID
   FAILED
+  CANCELLED
   REFUNDED
 }
 

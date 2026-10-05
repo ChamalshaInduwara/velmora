@@ -100,6 +100,16 @@ export default function MyBookingLookup() {
   const [loading, setLoading] =
     useState(false);
 
+  const [
+    cancelling,
+    setCancelling,
+  ] = useState(false);
+
+  const [
+    cancellationMessage,
+    setCancellationMessage,
+  ] = useState("");
+
   const [error, setError] =
     useState("");
 
@@ -114,6 +124,7 @@ export default function MyBookingLookup() {
     event.preventDefault();
 
     setError("");
+    setCancellationMessage("");
     setBooking(null);
 
     if (
@@ -184,6 +195,100 @@ export default function MyBookingLookup() {
       );
     } finally {
       setLoading(false);
+    }
+  }
+
+  async function handleCancellation() {
+    if (!booking) {
+      return;
+    }
+
+    const confirmed =
+      window.confirm(
+        `Are you sure you want to cancel booking ${booking.bookingReference}?`
+      );
+
+    if (!confirmed) {
+      return;
+    }
+
+    setError("");
+    setCancellationMessage("");
+    setCancelling(true);
+
+    try {
+      const response =
+        await fetch(
+          "/api/bookings/cancel",
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json",
+            },
+
+            body: JSON.stringify({
+              bookingReference:
+                booking.bookingReference,
+
+              email:
+                email.trim(),
+            }),
+          }
+        );
+
+      const data =
+        (await response.json()) as {
+          success?: boolean;
+          status?: string;
+          message?: string;
+          error?: string;
+        };
+
+      if (
+        !response.ok ||
+        !data.success
+      ) {
+        setError(
+          data.error ??
+            "The booking could not be cancelled."
+        );
+
+        return;
+      }
+
+      setBooking((current) =>
+        current
+          ? {
+              ...current,
+              status:
+                "CANCELLED",
+
+              payment:
+                current.payment &&
+                current.payment.status ===
+                  "INITIATED"
+                  ? {
+                      ...current.payment,
+                      status:
+                        "CANCELLED",
+                    }
+                  : current.payment,
+            }
+          : current
+      );
+
+      setCancellationMessage(
+        data.message ??
+          "Your booking has been cancelled successfully."
+      );
+    } catch {
+      setError(
+        "Unable to connect to the booking service. Please try again."
+      );
+    } finally {
+      setCancelling(false);
     }
   }
 
@@ -313,6 +418,14 @@ export default function MyBookingLookup() {
           )}
 
           <div className="p-6 sm:p-8">
+            {cancellationMessage && (
+              <div className="mb-7 border-l-4 border-green-700 bg-green-50 px-5 py-4">
+                <p className="text-sm font-medium text-green-800">
+                  {cancellationMessage}
+                </p>
+              </div>
+            )}
+
             <div className="flex flex-col gap-6 border-b border-[#D8CBB8]/70 pb-7 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <p className="text-xs text-[#242424]/45">
@@ -490,16 +603,42 @@ export default function MyBookingLookup() {
               </div>
             )}
 
-            {booking.room && (
-              <div className="mt-8">
+            {booking.status ===
+              "CANCELLED" && (
+              <div className="mt-6 border-l-4 border-red-700 bg-red-50 px-5 py-4">
+                <p className="text-sm font-medium text-red-800">
+                  This reservation has been
+                  cancelled.
+                </p>
+              </div>
+            )}
+
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+              {booking.room && (
                 <Link
                   href={`/rooms/${booking.room.slug}`}
                   className="inline-flex min-h-12 items-center justify-center border border-[#14213D] px-7 text-xs font-semibold tracking-[0.12em] text-[#14213D] transition hover:bg-[#14213D] hover:text-white"
                 >
                   VIEW ROOM DETAILS
                 </Link>
-              </div>
-            )}
+              )}
+
+              {booking.status ===
+                "CONFIRMED" && (
+                <button
+                  type="button"
+                  disabled={cancelling}
+                  onClick={
+                    handleCancellation
+                  }
+                  className="inline-flex min-h-12 items-center justify-center border border-red-700 px-7 text-xs font-semibold tracking-[0.12em] text-red-700 transition hover:bg-red-700 hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  {cancelling
+                    ? "CANCELLING..."
+                    : "CANCEL BOOKING"}
+                </button>
+              )}
+            </div>
           </div>
         </article>
       )}
