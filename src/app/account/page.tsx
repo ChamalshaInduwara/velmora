@@ -15,6 +15,7 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 import SignOutButton from "@/components/auth/sign-out-button";
+import ClaimBookingForm from "@/components/account/claim-booking-form";
 
 import Footer from "@/components/layout/footer";
 import Navbar from "@/components/layout/navbar";
@@ -331,25 +332,31 @@ export default async function AccountPage() {
             )}
           </section>
 
+          <section>
+            <ClaimBookingForm />
+          </section>
+
           <section className="border border-[#D8CBB8]/70 bg-white p-6 sm:p-8">
             <p className="text-xs font-semibold tracking-[0.2em] text-[#C9A227]">
-              PREVIOUS BOOKINGS
+              BOOKING LOOKUP
             </p>
 
             <h2 className="mt-3 font-[var(--font-playfair)] text-2xl font-semibold text-[#14213D]">
-              Looking for an older reservation?
+              Prefer to View Without Linking?
             </h2>
 
             <p className="mt-4 text-sm leading-7 text-[#242424]/65">
-              Reservations made before signing into your account can still be
-              accessed using your booking reference and booking email.
+              You can still view a reservation
+              using its booking reference and
+              booking email without adding it
+              to your account.
             </p>
 
             <Link
               href="/my-booking"
               className="mt-6 inline-flex min-h-11 items-center justify-center bg-[#14213D] px-6 text-xs font-semibold tracking-[0.12em] text-white transition hover:bg-[#C9A227] hover:text-[#14213D]"
             >
-              FIND EXISTING BOOKING
+              FIND MY BOOKING
             </Link>
           </section>
         </div>
