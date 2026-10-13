@@ -34,6 +34,11 @@ enum PaymentMethod {
   CARD
 }
 
+enum UserRole {
+  CUSTOMER
+  ADMIN
+}
+
 model Hotel {
   id          String   @id @default(cuid())
   name        String
@@ -193,6 +198,7 @@ model User {
   image         String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
+  role          UserRole  @default(CUSTOMER)
   sessions      Session[]
   accounts      Account[]
   guest         Guest?
