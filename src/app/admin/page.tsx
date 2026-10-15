@@ -16,7 +16,8 @@ export default async function AdminDashboardPage() {
     confirmedBookings,
     guestCount,
     roomCount,
-    revenueData,
+    bookingValueData,
+    collectedRevenueData,
   ] = await Promise.all([
     prisma.booking.count(),
 
@@ -51,11 +52,25 @@ export default async function AdminDashboardPage() {
         totalAmount: true,
       },
     }),
+
+    prisma.payment.aggregate({
+      where: {
+        status: "PAID",
+      },
+
+      _sum: {
+        amount: true,
+      },
+    }),
   ]);
 
-  const estimatedRevenue =
-    revenueData._sum
+  const bookingValue =
+    bookingValueData._sum
       .totalAmount ?? 0;
+
+  const collectedRevenue =
+    collectedRevenueData._sum
+      .amount ?? 0;
 
   const stats = [
     {
@@ -162,7 +177,7 @@ export default async function AdminDashboardPage() {
 
             <p className="mt-2 font-[var(--font-playfair)] text-3xl font-semibold text-[#C9A227]">
               LKR{" "}
-              {estimatedRevenue.toLocaleString()}
+              {bookingValue.toLocaleString()}
             </p>
 
             <p className="mt-2 text-xs leading-6 text-white/50">
@@ -171,6 +186,33 @@ export default async function AdminDashboardPage() {
               reservations. This is
               not necessarily
               collected revenue.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="mt-6 border border-[#D8CBB8]/70 bg-white p-7">
+        <div className="flex gap-4">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center bg-[#F6F1E8]">
+            <CircleDollarSign
+              size={22}
+              className="text-[#C9A227]"
+            />
+          </div>
+
+          <div>
+            <p className="text-xs font-semibold tracking-[0.18em] text-[#242424]/45">
+              COLLECTED REVENUE
+            </p>
+
+            <p className="mt-2 font-[var(--font-playfair)] text-3xl font-semibold text-[#14213D]">
+              LKR{" "}
+              {collectedRevenue.toLocaleString()}
+            </p>
+
+            <p className="mt-2 text-xs leading-6 text-[#242424]/50">
+              Total value of payments
+              currently recorded as paid.
             </p>
           </div>
         </div>

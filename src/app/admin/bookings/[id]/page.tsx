@@ -16,6 +16,8 @@ import BookingStatusActions from "@/components/admin/booking-status-actions";
 
 import { prisma } from "@/lib/prisma";
 
+import PaymentStatusActions from "@/components/admin/payment-status-actions";
+
 export const dynamic = "force-dynamic";
 
 type AdminBookingPageProps = {
@@ -373,30 +375,45 @@ export default async function AdminBookingDetailsPage({
               </div>
             </div>
 
-            {booking.payments.map(
-              (payment) => (
-                <div
-                  key={
-                    payment.id
-                  }
-                  className="mt-6 border-t border-white/15 pt-5 text-sm"
-                >
-                  <p className="text-white/60">
-                    Method:{" "}
-                    {formatStatus(
-                      payment.method
-                    )}
-                  </p>
+           {booking.payments.map(
+  (payment) => (
+    <div
+      key={payment.id}
+      className="mt-6 border-t border-white/15 pt-5"
+    >
+      <p className="text-sm text-white/60">
+        Method:{" "}
+        {formatStatus(
+          payment.method
+        )}
+      </p>
 
-                  <p className="mt-2 text-white/60">
-                    Status:{" "}
-                    {formatStatus(
-                      payment.status
-                    )}
-                  </p>
-                </div>
-              )
-            )}
+      <p className="mt-2 text-sm text-white/60">
+        Status:{" "}
+        <span className="font-semibold text-white">
+          {formatStatus(
+            payment.status
+          )}
+        </span>
+      </p>
+
+      {payment.paidAt && (
+        <p className="mt-2 text-xs text-white/45">
+          Paid:{" "}
+          {formatDate(
+            payment.paidAt
+          )}
+        </p>
+      )}
+
+      <PaymentStatusActions
+        paymentId={payment.id}
+        method={payment.method}
+        status={payment.status}
+      />
+    </div>
+  )
+)}
           </section>
 
           {/* Totals */}
