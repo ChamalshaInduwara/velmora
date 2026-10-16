@@ -4,6 +4,7 @@ import {
   BedDouble,
   BookOpenCheck,
   LayoutDashboard,
+  MessageSquareText,
   Users,
 } from "lucide-react";
 
@@ -37,6 +38,11 @@ const adminLinks = [
     label: "Guests",
     href: "/admin/guests",
     icon: Users,
+  },
+  {
+    label: "Enquiries",
+    href: "/admin/enquiries",
+    icon: MessageSquareText,
   },
 ];
 

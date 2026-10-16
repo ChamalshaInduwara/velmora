@@ -15,6 +15,7 @@ import {
   parseBookingDate,
 } from "@/lib/booking-utils";
 
+import { sendBookingConfirmationEmail } from "@/lib/email/booking-confirmation";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
@@ -480,6 +481,18 @@ export async function POST(
 
               status:
                 true,
+
+              bookingRooms: {
+                take: 1,
+
+                select: {
+                  roomType: {
+                    select: {
+                      name: true,
+                    },
+                  },
+                },
+              },
             },
           });
         },
@@ -494,6 +507,48 @@ export async function POST(
           timeout: 10000,
         }
       );
+
+    const roomName =
+      booking.bookingRooms[0]
+        ?.roomType.name ??
+      "Velmora Room";
+
+    try {
+      await sendBookingConfirmationEmail({
+        bookingReference:
+          booking.bookingReference,
+
+        guest: {
+          firstName,
+          lastName,
+          email,
+        },
+
+        roomName,
+
+        checkIn,
+        checkOut,
+
+        nights,
+
+        adults,
+        children,
+
+        numberOfRooms:
+          requestedRooms,
+
+        totalAmount:
+          booking.totalAmount,
+
+        paymentMethod:
+          "PAY_AT_HOTEL",
+      });
+    } catch (emailError) {
+      console.error(
+        "Booking was created, but confirmation email failed:",
+        emailError
+      );
+    }
 
     return NextResponse.json(
       {
