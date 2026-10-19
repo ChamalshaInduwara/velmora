@@ -10,9 +10,12 @@ import { getActiveRoomTypes } from "@/lib/rooms";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Rooms & Suites | Velmora Hotel & Resort",
+  title: "Rooms & Suites",
   description:
-    "Explore elegant rooms and suites at Velmora Hotel & Resort.",
+    "Explore elegant rooms and suites at Velmora Hotel & Resort and find accommodation for your next stay in Colombo.",
+  alternates: {
+    canonical: "/rooms",
+  },
 };
 
 export default async function RoomsPage() {

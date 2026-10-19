@@ -13,9 +13,12 @@ import Navbar from "@/components/layout/navbar";
 import TopBar from "@/components/layout/top-bar";
 
 export const metadata: Metadata = {
-  title: "Contact | Velmora Hotel & Resort",
+  title: "Contact Us",
   description:
-    "Contact Velmora Hotel & Resort for bookings, enquiries and guest assistance.",
+    "Contact Velmora Hotel & Resort for reservations, hotel information and guest enquiries.",
+  alternates: {
+    canonical: "/contact",
+  },
 };
 
 export default function ContactPage() {

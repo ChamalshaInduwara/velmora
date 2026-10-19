@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 
 import {
@@ -16,6 +17,14 @@ import { getAdminUser } from "@/lib/admin-auth";
 
 type AdminLayoutProps = {
   children: React.ReactNode;
+};
+
+export const metadata: Metadata = {
+  title: "Administration",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 const adminLinks = [

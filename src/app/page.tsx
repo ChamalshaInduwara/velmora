@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import BookingSearch from "@/components/booking/booking-search";
 import AboutSection from "@/components/home/about-section";
 import DiningSection from "@/components/home/dining-section";
@@ -13,27 +15,41 @@ import RoomsSection from "@/components/home/rooms-section";
 import Footer from "@/components/layout/footer";
 import Navbar from "@/components/layout/navbar";
 import TopBar from "@/components/layout/top-bar";
+import HotelJsonLd from "@/components/seo/hotel-json-ld";
+
+export const metadata: Metadata = {
+  title: "Luxury Hotel in Colombo, Sri Lanka",
+  description:
+    "Experience elegant rooms, fine dining, wellness, leisure and memorable hospitality at Velmora Hotel & Resort in Colombo, Sri Lanka.",
+  alternates: {
+    canonical: "/",
+  },
+};
 
 export default function Home() {
   return (
-    <main>
-      <TopBar />
-      <Navbar />
+    <>
+      <HotelJsonLd />
 
-      <HeroSection />
-      <BookingSearch />
-      <AboutSection />
-      <RoomsSection />
-      <FacilitiesSection />
-      <DiningSection />
-      <ExperiencesSection />
-      <OffersSection />
-      <GallerySection />
-      <ReviewsSection />
-      <LocationSection />
-      <FinalBookingSection />
+      <main>
+        <TopBar />
+        <Navbar />
 
-      <Footer />
-    </main>
+        <HeroSection />
+        <BookingSearch />
+        <AboutSection />
+        <RoomsSection />
+        <FacilitiesSection />
+        <DiningSection />
+        <ExperiencesSection />
+        <OffersSection />
+        <GallerySection />
+        <ReviewsSection />
+        <LocationSection />
+        <FinalBookingSection />
+
+        <Footer />
+      </main>
+    </>
   );
 }
