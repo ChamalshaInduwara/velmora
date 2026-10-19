@@ -147,6 +147,15 @@ export default function SignInForm() {
             className="h-12 w-full border border-[#D8CBB8] bg-white pl-11 pr-4 text-sm outline-none transition focus:border-[#C9A227]"
           />
         </div>
+
+        <div className="mt-2 flex justify-end">
+          <Link
+            href="/forgot-password"
+            className="text-xs font-semibold text-[#C9A227] transition hover:text-[#14213D]"
+          >
+            Forgot password?
+          </Link>
+        </div>
       </div>
 
       {error && (
