@@ -40,6 +40,10 @@ export const metadata: Metadata = {
   ],
   creator: "Velmora Hotel & Resort",
   publisher: "Velmora Hotel & Resort",
+  icons: {
+    icon: "/images/logo/velmora-logo.png",
+    apple: "/images/logo/velmora-logo.png",
+  },
   openGraph: {
     type: "website",
     locale: "en_LK",

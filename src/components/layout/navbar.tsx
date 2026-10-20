@@ -5,6 +5,8 @@ import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
+import VelmoraBrand from "@/components/ui/velmora-brand";
+
 const navLinks = [
   {
     name: "Home",
@@ -93,7 +95,6 @@ export default function Navbar() {
   const menuButtonClass = isLightBackground
     ? "border-[#14213D]/20 text-[#14213D]"
     : "border-white/20 text-white";
-  const logoClass = isLightBackground ? "text-[#14213D]" : "text-white";
   const mobileLinkClass = isLightBackground
     ? "border-[#D8CBB8]/60 text-[#14213D]"
     : "border-white/10 text-white";
@@ -106,23 +107,16 @@ export default function Navbar() {
         {/* Logo */}
         <Link
           href="/"
-          className="group flex flex-col leading-none"
+          className="group min-w-0 shrink-0"
           onClick={() => setIsOpen(false)}
+          aria-label="Velmora Hotel & Resort home"
         >
-          <span
-            className={`font-[var(--font-playfair)] text-2xl font-semibold tracking-[0.16em] ${logoClass}`}
-          >
-            VELMORA
-          </span>
-
-          <span className="mt-1 text-[9px] font-medium tracking-[0.28em] text-[#C9A227]">
-            HOTEL & RESORT
-          </span>
+          <VelmoraBrand lightText={!isLightBackground} priority />
         </Link>
 
         {/* Desktop Navigation */}
         <nav
-          className="hidden items-center gap-7 lg:flex"
+          className="hidden items-center gap-4 xl:gap-7 lg:flex"
           aria-label="Main navigation"
         >
           {navLinks.map((link) => {
@@ -151,7 +145,7 @@ export default function Navbar() {
         <div className="hidden lg:block">
           <Link
             href="/booking"
-            className="inline-flex min-h-11 items-center justify-center bg-[#C9A227] px-6 text-sm font-semibold tracking-wide text-[#14213D] transition hover:bg-[#D8B43A]"
+            className="inline-flex min-h-11 items-center justify-center bg-[#C9A227] px-4 text-sm font-semibold tracking-wide text-[#14213D] transition hover:bg-[#D8B43A] xl:px-6"
           >
             BOOK YOUR STAY
           </Link>

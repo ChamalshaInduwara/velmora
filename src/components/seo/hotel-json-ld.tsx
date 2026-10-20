@@ -16,6 +16,9 @@ export default function HotelJsonLd() {
     url:
       siteConfig.url,
 
+    logo:
+      `${siteConfig.url}/images/logo/velmora-logo.png`,
+
     telephone:
       siteConfig.contact.phone,
 

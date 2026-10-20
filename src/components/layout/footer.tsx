@@ -3,6 +3,8 @@ import { Mail, MapPin, Phone } from "lucide-react";
 
 import { FaFacebookF, FaInstagram, FaYoutube } from "react-icons/fa";
 
+import VelmoraBrand from "@/components/ui/velmora-brand";
+
 const quickLinks = [
   { name: "Home", href: "/" },
   { name: "Rooms", href: "/rooms" },
@@ -37,14 +39,8 @@ export default function Footer() {
         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div>
-            <Link href="/" className="inline-block">
-              <p className="font-[var(--font-playfair)] text-3xl font-semibold tracking-[0.12em]">
-                VELMORA
-              </p>
-
-              <p className="mt-1 text-[10px] font-semibold tracking-[0.3em] text-[#C9A227]">
-                HOTEL & RESORT
-              </p>
+            <Link href="/" className="inline-flex" aria-label="Velmora Hotel & Resort home">
+              <VelmoraBrand variant="footer" />
             </Link>
 
             <p className="mt-6 max-w-sm text-sm leading-7 text-white/65">

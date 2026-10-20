@@ -12,6 +12,7 @@ import {
 import { redirect } from "next/navigation";
 
 import SignOutButton from "@/components/auth/sign-out-button";
+import VelmoraLogo from "@/components/ui/velmora-logo";
 
 import { getAdminUser } from "@/lib/admin-auth";
 
@@ -72,9 +73,14 @@ export default async function AdminLayout({
           <div>
             <Link
               href="/admin"
-              className="font-[var(--font-playfair)] text-2xl font-semibold tracking-[0.08em]"
+              className="flex h-14 w-14 items-center justify-center bg-[#F6F1E8] p-1"
             >
-              VELMORA
+              <VelmoraLogo
+                width={80}
+                height={80}
+                sizes="56px"
+                className="h-12 w-12"
+              />
             </Link>
 
             <p className="mt-1 text-[10px] font-semibold tracking-[0.3em] text-[#C9A227]">
